@@ -2,6 +2,13 @@
 
 //use App\Http\Controllers\PageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Aboutontroller;
+use App\Http\Controllers\ArticlesController;
+
+
+
+//use App\Http\Controllers\PageController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticlesController;
 use Illuminate\Support\Facades\Route;
