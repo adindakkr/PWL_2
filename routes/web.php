@@ -8,8 +8,8 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\ContactUsController;
-
-
+use App\Http\Controllers\PengalamanController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +35,10 @@ use Illuminate\Support\Facades\Route;
 //     echo "Halaman Artikel dengan ID {id}";
 // });
 
-//Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
+
 // Route::get('/about', [AboutController::class, 'about']);
 // Route::get('/articles/{id}', [ArticlesController::class, 'articles']);
 
@@ -81,4 +84,4 @@ Route::prefix('program')->group(function () { //untuk meringkas penulisan route 
 Route::get("/AboutUs", [AboutUsController::class, 'index']);
 
 //Halaman Contact Us
-Route::get("/ContactUs", [ContactUsController::class, 'create']);
+Route::get("/ContactUs", [ContactUsController::class, 'index']);
