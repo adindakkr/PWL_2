@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\ArtikelModelController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\ProfileController;
@@ -85,3 +86,6 @@ Route::get("/AboutUs", [AboutUsController::class, 'index']);
 
 //Halaman Contact Us
 Route::get("/ContactUs", [ContactUsController::class, 'index']);
+
+//Route ArtikelModelController
+Route::get('/artikel', [ArtikelModelController::class, 'index']);
