@@ -9,6 +9,9 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\ArtikelModelController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\HobiModelController;
+use App\Http\Controllers\KeluargaModelController;
+use App\Http\Controllers\MatkulModelController;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -88,4 +91,9 @@ Route::get("/AboutUs", [AboutUsController::class, 'index']);
 Route::get("/ContactUs", [ContactUsController::class, 'index']);
 
 //Route ArtikelModelController
-Route::get('/artikel', [ArtikelModelController::class, 'index']);
+Route::get('/artikel', [ArtikelModelController::class, 'index'])->name('artikel');
+
+//tugas
+Route::get('/hobi', [HobiModelController::class, 'index'])->name('hobi');
+Route::get('/keluarga', [KeluargaModelController::class, 'index'])->name('keluarga');
+Route::get('/matkul', [MatkulModelController::class, 'index'])->name('matkul');
