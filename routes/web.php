@@ -8,12 +8,14 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\ArtikelModelController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\HobiModelController;
 use App\Http\Controllers\KeluargaModelController;
 use App\Http\Controllers\MatkulModelController;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,9 +41,7 @@ use Illuminate\Support\Facades\Route;
 //     echo "Halaman Artikel dengan ID {id}";
 // });
 
-Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
+
 
 // Route::get('/about', [AboutController::class, 'about']);
 // Route::get('/articles/{id}', [ArticlesController::class, 'articles']);
@@ -64,8 +64,6 @@ Route::prefix('products')->group(function () { //untuk meringkas penulisan route
 });
 
 //Halaman News
-Route::get('/news', [NewsController::class, 'index']);
-Route::get('/news/{news}', [NewsController::class, 'display']);
 
 //Halaman Program
 Route::prefix('program')->group(function () { //untuk meringkas penulisan route menggunakan prefix
@@ -91,9 +89,27 @@ Route::get("/AboutUs", [AboutUsController::class, 'index']);
 Route::get("/ContactUs", [ContactUsController::class, 'index']);
 
 //Route ArtikelModelController
-Route::get('/artikel', [ArtikelModelController::class, 'index'])->name('artikel');
 
-//tugas
-Route::get('/hobi', [HobiModelController::class, 'index'])->name('hobi');
-Route::get('/keluarga', [KeluargaModelController::class, 'index'])->name('keluarga');
-Route::get('/matkul', [MatkulModelController::class, 'index'])->name('matkul');
+
+//praktikum 6 auth
+Auth::routes();
+Route::get('logout', [LoginController::class, 'logout']);
+
+// Route::get('/tes', function () {
+//     echo Hash::make('1') . '<br>';
+//     echo Hash::make('1') . '<br>';
+//     echo Hash::make('1') . '<br>';
+// });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get("/AboutUs", [AboutUsController::class, 'index']);
+    Route::get("/ContactUs", [ContactUsController::class, 'index']);
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
+    Route::get('/artikel', [ArtikelModelController::class, 'index'])->name('artikel');
+    Route::get('/hobi', [HobiModelController::class, 'index'])->name('hobi');
+    Route::get('/keluarga', [KeluargaModelController::class, 'index'])->name('keluarga');
+    Route::get('/matkul', [MatkulModelController::class, 'index'])->name('matkul');
+});
