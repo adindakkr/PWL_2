@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\HobiModelController;
 use App\Http\Controllers\KeluargaModelController;
+use App\Http\Controllers\MahasiswaModelController;
 use App\Http\Controllers\MatkulModelController;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\ProfileController;
@@ -109,7 +110,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
     Route::get('/artikel', [ArtikelModelController::class, 'index'])->name('artikel');
-    Route::get('/hobi', [HobiModelController::class, 'index'])->name('hobi');
-    Route::get('/keluarga', [KeluargaModelController::class, 'index'])->name('keluarga');
-    Route::get('/matkul', [MatkulModelController::class, 'index'])->name('matkul');
+
+    Route::resource('/hobi', HobiModelController::class);
+    Route::resource('/keluarga', KeluargaModelController::class);
+    Route::resource('/matkul', MatkulModelController::class);
+    Route::resource('/mahasiswa', MahasiswaModelController::class);
 });

@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('keluarga', function (Blueprint $table) {
-            $table->string('id', 15)->primary();
+        Schema::create('mahasiswa_models', function (Blueprint $table) {
+            $table->id();
+            $table->string('nim', 10)->unique();
             $table->string('nama', 50)->nullable();
-            $table->string('peran', 15)->nullable();
-            $table->string('tgl_lahir')->nullable();
-            $table->string('pekerjaan', 30)->nullable();
+            $table->string('jk', 1)->nullable();
+            $table->string('tempat_lahir', 50)->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('hp', 15)->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('keluarga_models');
+        Schema::dropIfExists('mahasiswa_models');
     }
 };

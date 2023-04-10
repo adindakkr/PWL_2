@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('hobi', function (Blueprint $table) {
             $table->string('id', 15)->primary();
-            $table->string('jenis', 30);
-            $table->string('nama_hobi', 30);
-            $table->string('status', 30);
+            $table->string('jenis', 30)->nullable();
+            $table->string('nama_hobi', 30)->nullable();
+            $table->string('status', 30)->nullable();
+            $table->timestamps();
         });
     }
 

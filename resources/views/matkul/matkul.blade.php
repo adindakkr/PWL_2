@@ -36,14 +36,15 @@
           </div>
         </div>
         <div class="card-body">
-          Mata kuliah yang saya tempuh saat ini yaitu: 
+          <a href="{{url('matkul/create')}}" class="btn btn-sm btn-success my-2">Tambah Data</a>
           <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>ID</th>
                     <th>Nama_matkul</th>
                     <th>Dosen</th>
-                    <th>sks</th>
+                    <th>SKS</th>
+                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -53,6 +54,16 @@
                       <td>{{$h->nama_matkul}}</td>
                       <td>{{$h->dosen}}</td>
                       <td>{{$h->sks}}</td>
+                       <td>
+                        <!-- Bikin tombol Edit dan Delete-->
+                        <a href="{{ url('/matkul/'. $h->id.'/edit') }}" class="btn btn-sm btn-warning">edit</a>
+  
+                        <form method="POST" action="{{ url('/matkul/'.$h->id) }}" >
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
+                        </form>
+                       </td>
                     </tr>
                     @endforeach
                   </tbody>

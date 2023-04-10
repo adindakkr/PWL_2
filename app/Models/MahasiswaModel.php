@@ -5,16 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HobiModel extends Model
+class MahasiswaModel extends Model
 {
     use HasFactory;
-    protected $table = 'hobi'; //menunjukkan nama table
+    protected $table = 'mahasiswa_models'; //menunjukkan nama table
     //protected $primaryKey = 'id';
-    protected $keyType = 'string';
+    //protected $keyType = 'int'; 
     protected $fillable = [ //menentukan kolom dari table mana yang bisa diinputkan pada database
-        'id',
-        'jenis',
-        'nama_hobi',
-        'status',
+        'nim',
+        'nama',
+        'jk',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'alamat',
+        'hp'
     ];
 }

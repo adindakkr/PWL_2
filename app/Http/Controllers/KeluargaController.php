@@ -11,3 +11,4 @@ class KeluargaController extends Controller
         return view('p4.keluarga');
     }
 }
+
