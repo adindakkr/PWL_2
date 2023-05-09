@@ -99,7 +99,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Kelas">Kelas</label>
-                            <select class="form-control" name="Kelas">
+                            <select class="form-control" name="kelas">
                                 @foreach ($kelas as $kls)
                                     <option value="{{ $kls->id }}"
                                         @isset($mhs)

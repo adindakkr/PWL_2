@@ -70,15 +70,21 @@
                                         <td>{{ $m->kelas !== null ? $m->kelas->nama_kelas : 'tidak ada' }}</td>
                                         <td>
                                             <!-- Bikin tombol Edit dan Delete-->
-                                            <a href="{{ route('mahasiswa.edit', [$m->id]) }}"
-                                                class="btn btn-sm btn-warning">edit</a>
-                                            <a href="{{ route('mahasiswa.show', [$m->id]) }}"
-                                                class="btn btn-sm btn-warning">show</a>
-                                            <form method="POST" action="{{ url('/mahasiswa/' . $m->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
-                                            </form>
+                                            <div class="btn-group">
+                                                <a href="{{ route('mahasiswa.edit', [$m->id]) }}"
+                                                    class="btn btn-sm btn-warning mr-2">edit</a>
+                                                <a href="{{ route('mahasiswa.show', [$m->id]) }}"
+                                                    class="btn btn-sm btn-primary mr-2">show</a>
+                                                <a href="{{ route('mahasiswamatakuliah.show', [$m->id]) }}"
+                                                    class="btn btn-sm btn-success mr-2">nilai</a>
+                                                <form method="POST" action="{{ url('/mahasiswa/' . $m->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger mr-2">DELETE</button>
+                                                </form>
+                                            </div>
+
                                         </td>
 
                                     </tr>

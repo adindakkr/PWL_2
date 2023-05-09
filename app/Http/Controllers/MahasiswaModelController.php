@@ -93,7 +93,7 @@ class MahasiswaModelController extends Controller
         //menampilkan detail data dengan menemukan berdasarkan NIM Mahasiswa untuk diedit
         $mhs = MahasiswaModel::with('kelas')->where('id', $id)->first();
         $kelas = kelas::all(); //mendapatkan data dari tabel kelas
-        $url_form = route('mahasiswa.store');
+        $url_form = route('mahasiswa.store') . "/$id";
         return view('mahasiswa.create_mahasiswa', compact('mhs', 'kelas', 'url_form'));
     }
 
@@ -107,10 +107,10 @@ class MahasiswaModelController extends Controller
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|max:255',
             'hp' => 'required|digits_between:6,15',
-            'Kelas' => 'required',
+            'kelas' => 'required',
         ]);
 
-        $mhs = new MahasiswaModel();
+        $mhs = MahasiswaModel::find($id);
         $mhs->nim = $request->get('nim');
         $mhs->nama = $request->get('nama');
         $mhs->jk = $request->get('jk');
@@ -118,16 +118,8 @@ class MahasiswaModelController extends Controller
         $mhs->tanggal_lahir = $request->get('tanggal_lahir');
         $mhs->alamat = $request->get('alamat');
         $mhs->hp = $request->get('hp');
-        $mhs->kelas_id = $request->get('Kelas');
+        $mhs->kelas_id = $request->get('kelas');
         $mhs->save();
-
-        $kelas = new kelas;
-        $kelas->id = $request->get('kelas_id');
-
-        //fungsi eloquent untuk menambah data dengan relasi belongsTo
-        $mhs->kelas()->associate($kelas);
-        $mhs->save();
-
 
         //jika data berhasil ditambahkan, akan kembali ke halaman utama
         return redirect()->route('mahasiswa.index')
