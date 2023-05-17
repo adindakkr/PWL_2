@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArtikelModelController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactUsController;
@@ -119,4 +120,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/matakuliah', MataKuliahController::class);
     Route::resource('/mahasiswa', MahasiswaModelController::class);
     Route::resource('/mahasiswamatakuliah', MahasiswaMatakuliahController::class);
+    Route::resource('/articles', ArticleController::class);
 });
