@@ -16,7 +16,14 @@
                         <li class="list-group-item"><b>Tempat Lahir: </b>{{ $mahasiswa->tempat_lahir }}</li>
                         <li class="list-group-item"><b>Tanggal Lahir: </b>{{ $mahasiswa->tanggal_lahir }}</li>
                         <li class="list-group-item"><b>HP: </b>{{ $mahasiswa->hp }}</li>
-
+                        <li class="list-group-item"><b>Foto:</b><br>
+                            @if ($mahasiswa->foto)
+                                <img style="max-width: 100px;max-height:100px"
+                                    src="{{ url('storage') . '/' . $mahasiswa->foto }}" />
+                            @else
+                                Foto tidak tersedia
+                            @endif
+                        </li>
                     </ul>
                 </div>
                 <a class="btn btn-success mt-3" href="{{ route('mahasiswa.index') }}">Kembali</a>

@@ -60,16 +60,20 @@
                         </tbody>
                     </table>
                     <div class="card-body">
-                        <a class="btn btn-success mt3" href="{{ route('mahasiswa.index') }}">Kembali</a>
+                        <div class="float-right my-2">
+                            <a href="{{ route('cetak', $mahasiswa->id) }}" class="btn btn-sm btn-danger my-2">Cetak PDF</a>
+                        </div>
+                        <div class="float-left my-2">
+                            <a class="btn btn-success my-2" href="{{ route('mahasiswa.index') }}">Kembali</a>
+                        </div>
                     </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        Footer
+                    </div>
+                    <!-- /.card-footer-->
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    Footer
-                </div>
-                <!-- /.card-footer-->
-            </div>
-            <!-- /.card -->
+                <!-- /.card -->
 
         </section>
         <!-- /.content -->

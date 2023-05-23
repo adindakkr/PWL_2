@@ -36,7 +36,11 @@
                     </div>
                 </div>
                 <div class="card-body">
-
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
                     <a href="{{ route('mahasiswa.create') }}" class="btn btn-sm btn-success my-2">Tambah Data</a>
 
                     <table class="table table-bordered table-striped">
@@ -50,6 +54,7 @@
                                 <th>Tanggal Lahir</th>
                                 <th>Alamat</th>
                                 <th>HP</th>
+                                <th>Foto</th>
                                 <th>Kelas</th>
                                 <th>Action</th>
 
@@ -67,21 +72,27 @@
                                         <td>{{ $m->tanggal_lahir }}</td>
                                         <td>{{ $m->alamat }}</td>
                                         <td>{{ $m->hp }}</td>
+                                        <td>
+                                            @if ($m->foto)
+                                                <img style="max-width:100px;max-height:100px"
+                                                    src="{{ url('storage') . '/' . $m->foto }}" />
+                                            @endif
+                                        </td>
                                         <td>{{ $m->kelas !== null ? $m->kelas->nama_kelas : 'tidak ada' }}</td>
                                         <td>
                                             <!-- Bikin tombol Edit dan Delete-->
                                             <div class="btn-group">
                                                 <a href="{{ route('mahasiswa.edit', [$m->id]) }}"
-                                                    class="btn btn-sm btn-warning mr-2">edit</a>
+                                                    class="btn btn-sm btn-warning mr-2">Edit</a>
                                                 <a href="{{ route('mahasiswa.show', [$m->id]) }}"
-                                                    class="btn btn-sm btn-primary mr-2">show</a>
+                                                    class="btn btn-sm btn-primary mr-2">Show</a>
                                                 <a href="{{ route('mahasiswamatakuliah.show', [$m->id]) }}"
-                                                    class="btn btn-sm btn-success mr-2">nilai</a>
+                                                    class="btn btn-sm btn-success mr-2">Nilai</a>
                                                 <form method="POST" action="{{ url('/mahasiswa/' . $m->id) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        class="btn btn-sm btn-danger mr-2">DELETE</button>
+                                                        class="btn btn-sm btn-danger mr-2">Delete</button>
                                                 </form>
                                             </div>
 

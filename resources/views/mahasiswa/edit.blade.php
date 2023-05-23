@@ -10,8 +10,8 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Mahasiswa</a></li>
-                            <li class="breadcrumb-item active">Mahasiswa Page</li>
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Mahasiswa</li>
                         </ol>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Mahasiswa</h3>
+                    <h3 class="card-title">kelas : TI-2A</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="form-group">
                             <label for="image">Foto</label>
-                            <input type="file" class="form-control" required="required" name="image"></br>
+                            <input type="file" class="form-control" required="required" name="image">
                         </div>
                         <div class="form-group">
                             <label for="Kelas">Kelas</label>
@@ -107,8 +107,8 @@
                                 @foreach ($kelas as $kls)
                                     <option value="{{ $kls->id }}"
                                         @isset($mhs)
-                                         {{ $mhs->kelas_id == $kls->id ? 'selected' : '' }}
-                                        @endisset>
+                                 {{ $mhs->kelas_id == $kls->id ? 'selected' : '' }}
+                                @endisset>
                                         {{ $kls->nama_kelas }}
                                     </option>
                                 @endforeach
@@ -121,7 +121,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    (-Adinda Kurnia Rifanti/ 2141720100 / 01-)
+                    Footer
                 </div>
                 <!-- /.card-footer-->
             </div>

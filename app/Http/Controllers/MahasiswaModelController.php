@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\MahasiswaModel;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
+use App\Models\Mahasiswa_MataKuliah;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Contracts\Service\Attribute\Required;
+use PDF;
 
 class MahasiswaModelController extends Controller
 {
@@ -44,8 +48,16 @@ class MahasiswaModelController extends Controller
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|max:255',
             'hp' => 'required|digits_between:6,15',
-            'Kelas' => 'required',
+            'kelas' => 'required',
         ]);
+
+        //Menyimpan foto
+        $foto_name = null;
+        if ($request->file('image')) {
+            $foto = $request->file('image');
+            $foto_name = time() . '_' . $foto->getClientOriginalName();
+            $foto_name = $request->file('image')->store('images', 'public');
+        }
 
         $mhs = new MahasiswaModel();
         $mhs->nim = $request->get('nim');
@@ -54,8 +66,10 @@ class MahasiswaModelController extends Controller
         $mhs->tempat_lahir = $request->get('tempat_lahir');
         $mhs->tanggal_lahir = $request->get('tanggal_lahir');
         $mhs->alamat = $request->get('alamat');
-        $mhs->kelas_id = $request->get('Kelas');
+        $mhs->kelas_id = $request->get('kelas');
         $mhs->hp = $request->get('hp');
+        $mhs->foto = $request->get('foto');
+        $mhs->foto = $foto_name;
 
         $kelas = new kelas;
         $kelas->id = $request->get('kelas_id');
@@ -94,7 +108,7 @@ class MahasiswaModelController extends Controller
         $mhs = MahasiswaModel::with('kelas')->where('id', $id)->first();
         $kelas = kelas::all(); //mendapatkan data dari tabel kelas
         $url_form = route('mahasiswa.store') . "/$id";
-        return view('mahasiswa.create_mahasiswa', compact('mhs', 'kelas', 'url_form'));
+        return view('mahasiswa.edit', compact('mhs', 'kelas', 'url_form'));
     }
 
     public function update(Request $request, $id)
@@ -118,7 +132,15 @@ class MahasiswaModelController extends Controller
         $mhs->tanggal_lahir = $request->get('tanggal_lahir');
         $mhs->alamat = $request->get('alamat');
         $mhs->hp = $request->get('hp');
+        $mhs->foto = $request->get('foto');
         $mhs->kelas_id = $request->get('kelas');
+        $foto_name = null;
+        if ($mhs->foto && file_exists(storage_path('app/public/' . $mhs->foto))) {
+            Storage::delete('public/' . $mhs->foto);
+        }
+        $foto_name = $request->file('image')->store('images', 'public');
+        $mhs->foto = $foto_name;
+
         $mhs->save();
 
         //jika data berhasil ditambahkan, akan kembali ke halaman utama
@@ -137,5 +159,12 @@ class MahasiswaModelController extends Controller
         MahasiswaModel::where('id', '=', $id)->delete();
         return redirect('mahasiswa')
             ->with('success', 'Mahasiswa Berhasil Dihapus');
+    }
+    public function cetak_pdf($id)
+    {
+        $mahasiswa = MahasiswaModel::find($id);
+        $Mahasiswa_MataKuliah = Mahasiswa_MataKuliah::with('mahasiswa', 'matakuliah')->where('mahasiswa_id',  $id)->get();
+        $pdf = FacadePdf::loadview('mahasiswa.nilai_pdf', ['mahasiswa' => $mahasiswa, 'mhsmatkul' => $Mahasiswa_MataKuliah]);
+        return $pdf->stream();
     }
 }
